@@ -1,0 +1,79 @@
+﻿@model IEnumerable<TransactionApp.ViewModels.TransactionVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<br />
+
+
+@using (Html.BeginForm("Index", "Transaction", FormMethod.Get))
+{
+
+    <p style="text-align:start">
+        @Html.DropDownList("ClientId", null, "--Select Client--", new { @style = "width: 20%; height: 30px; border-radius: 4px; border:1px solid #dddddd;" })
+        <input type="submit" class="btn btn-sm" style="border:1px solid #dddddd; border-radius: 3px" value="Submit">
+    </p>
+
+    
+}
+<button class="btn btn-success" onclick="location.href='@Url.Action("Create","Transaction")'">Add Transaction</button>
+@using (Html.BeginForm("Index", "Transaction", FormMethod.Get))
+{        
+
+    <p style="text-align:end">
+        Find by Name: @Html.TextBox("searchString", ViewBag.searchString as string, new { id = "searchID", @style = "width: 20%; height: 30px; border-radius: 4px; border:1px solid #dddddd;" })
+        <input type="submit" class="btn btn-sm" style="border:1px solid #dddddd; border-radius: 3px" value="Search">
+    </p>
+
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayName("Transaction Type")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionTypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TransactionId })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
